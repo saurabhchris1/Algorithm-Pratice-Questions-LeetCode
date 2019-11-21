@@ -30,6 +30,18 @@ def list2linkedlist(l):
     return head
 
 
+# Reversing a linked list
+def reverse(node):
+    prev = None
+    curr = node
+    while curr:
+        temp = curr.next
+        curr.next = prev
+        prev = curr
+        curr = temp
+    return prev
+
+
 if __name__ == "__main__":
     l1 = [1, 3, 5, 7, 9]
     l2 = [2, 4, 6, 8, 10]
@@ -44,3 +56,9 @@ if __name__ == "__main__":
     print (newnode)
     newnode.next = n1
     print (newnode)
+    print("Deleting from the linked list")
+    newnode.next = newnode.next.next
+    print(newnode)
+    print("Now reversing the linked list")
+    print(n1)
+    print(reverse(n1))
