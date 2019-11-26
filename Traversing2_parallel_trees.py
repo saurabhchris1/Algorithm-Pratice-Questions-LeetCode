@@ -25,6 +25,18 @@ class Node:
                 return False
         return True
 
+    def isclone_iterative(self, n2):
+        stack = [(self, n2)]
+
+        (c1, c2) = stack.pop()
+        if c1.data != c2.data:
+            return False
+        if len(c1.children) != len(c2.children):
+            return False
+        for i in range(0, len(c1.children)):
+            stack.append((c1.children[i], c2.children[i]))
+        return True
+
 
 if __name__ == "__main__":
     #     1
