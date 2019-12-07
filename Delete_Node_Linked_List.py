@@ -29,15 +29,8 @@ class ListNode:
 
 class Solution:
     def delete(self, node):
-
-        while node:
-            if node.next.next != None:
-                node.val = node.next.val
-            else:
-                node.val = node.next.val
-                node.next = None
-                break
-            node = node.next
+        node.val = node.next.val
+        node.next = node.next.next
 
 
 if __name__ == "__main__":
