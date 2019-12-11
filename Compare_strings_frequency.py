@@ -16,10 +16,10 @@
 # On the second query both f("aaa") and f("aaaa") are both > f("cc").
 
 import bisect
-
+import collections
 
 class Solution:
-    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
+    def numSmallerByFrequency(self, queries, words):
 
         # you have to go through each char to find the frequency O(n)
         def f(s):
