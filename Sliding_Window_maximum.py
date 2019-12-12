@@ -21,15 +21,26 @@
 #
 # Follow up:
 # Could you solve it in linear time?
-
+import collections
 
 class Solution:
     def maxSlidingWindow(self, nums, k):
-        if len(nums) == 0:
-            return []
-        length = len(nums) - k
-        arr = []
-        for i in range(length + 1):
-            arr.append(max(nums[i:i + k]))
+        # if len(nums) == 0:
+        #     return []
+        # length = len(nums) - k
+        # arr = []
+        # for i in range(length + 1):
+        #     arr.append(max(nums[i:i + k]))
+        #
+        # return arr
 
-        return arr
+        queue = collections.deque()
+        slid_max = []
+        for i in nums:
+            queue.append(i)
+            if len(queue) > k:
+                queue.popleft()
+            if len(queue) == k:
+                slid_max.append(max(queue))
+
+        return slid_max
