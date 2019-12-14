@@ -21,7 +21,7 @@ class Solution:
         while y:
             answer = x ^ y
             carry = (x & y) << 1
-            x, y = answer, carr
+            x, y = answer, carry
 
         return bin(x)
 
