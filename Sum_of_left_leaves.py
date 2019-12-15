@@ -37,3 +37,13 @@ class Solution:
         if n.right is not None:
             stack.append(n.right)
         return lsum
+
+    def sum_of_Left_Leaves_recurssive(self, root):
+        if not root:
+            return 0
+
+        if root.left is not None:
+            if root.left.left is None and root.left.right is None:
+                return root.left.val + self.sumOfLeftLeaves(root.right)
+
+        return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
