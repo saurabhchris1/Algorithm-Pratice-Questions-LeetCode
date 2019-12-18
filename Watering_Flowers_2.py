@@ -45,7 +45,7 @@ class Solution:
 
 
 if __name__ == "__main__":
-    arr = [2, 4, 5, 1, 2]
+    arr = [2, 4, 1, 2]
     c1 = 5
     c2 = 7
     print(Solution().waterPlants(arr, c1, c2))
