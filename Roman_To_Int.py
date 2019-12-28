@@ -47,27 +47,29 @@
 
 
 def roman_to_int(s):
-    roman_dict = {"I": 1, "V": 5, "X": 10,
-                  "L": 50, "C": 100, "D": 500, "M": 1000}
+    romanNumeral = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
 
-    num = 0
+    prev = 0
+    Sum = 0
 
-    if len(s) == 1:
-        return roman_dict[s]
-
-    for i in range(len(s)):
-
-        if i != 0:
-
-            if roman_dict[s[i - 1]] < roman_dict[s[i]]:
-
-                num = num + roman_dict[s[i]] - (2 * roman_dict[s[i - 1]])
-            else:
-                num = num + roman_dict[s[i]]
+    for i in s[::-1]:
+        curr = romanNumeral[i]
+        if curr < prev:
+            Sum -= curr
         else:
-            num = num + roman_dict[s[i]]
+            Sum += curr
 
-    return num
+        prev = curr
+
+    return Sum
 
 
 if __name__ == '__main__':
