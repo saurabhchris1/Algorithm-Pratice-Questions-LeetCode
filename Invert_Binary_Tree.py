@@ -24,7 +24,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
+import collections
 class Solution:
     def invertTree(self, root):
         def helper(node):
@@ -40,3 +40,25 @@ class Solution:
             return node
 
         return helper(root)
+
+    def invertTreeIterative(self, root):
+        if not root:
+            return root
+
+        queue = collections.deque()
+        queue.append(root)
+
+        while len(queue):
+
+            node = queue.popleft()
+
+            temp = node.left
+            node.left = node.right
+            node.right = temp
+
+            if node.left is not None:
+                queue.append(node.left)
+            if node.right is not None:
+                queue.append(node.right)
+
+        return root
