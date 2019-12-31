@@ -52,9 +52,7 @@ class Solution:
 
             node = queue.popleft()
 
-            temp = node.left
-            node.left = node.right
-            node.right = temp
+            node.left, node.right = node.right, node.left
 
             if node.left is not None:
                 queue.append(node.left)
