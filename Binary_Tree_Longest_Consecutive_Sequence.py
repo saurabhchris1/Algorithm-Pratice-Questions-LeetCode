@@ -59,3 +59,27 @@ class Solution:
             return max(length, max(helper(node.left, node, length), helper(node.right, node, length)))
 
         return helper(root, None, 0)
+
+    def longestConsecutiveIterative(self, root):
+        if not root:
+            return 0
+
+        stack = []
+        stack.append([root, None, 0])
+        maxLength = 0
+        parent = None
+
+        while len(stack):
+            node, parent, length = stack.pop()
+            if parent is not None and node.val == parent.val + 1:
+                length += 1
+            else:
+                length = 1
+            parent = node
+            maxLength = max(maxLength, length)
+            if node.right is not None:
+                stack.append([node.right, parent, length])
+            if node.left is not None:
+                stack.append([node.left, parent, length])
+
+        return maxLength
