@@ -51,7 +51,7 @@ class Solution:
             if not node:
                 return length
 
-            if parent != None and node.val == parent.val + 1:
+            if parent is not None and node.val == parent.val + 1:
                 length += 1
             else:
                 length = 1
