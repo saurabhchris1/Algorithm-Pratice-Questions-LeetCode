@@ -63,7 +63,7 @@ class Solution:
         return slow
 
     # O(n log n) time and log(n) space
-    def sortedListToBST2(self, head: ListNode) -> TreeNode:
+    def sortedListToBST2(self, head):
         if not head:
             return None
 
