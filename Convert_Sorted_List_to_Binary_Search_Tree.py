@@ -25,6 +25,7 @@ class TreeNode:
 
 
 class Solution:
+    # O(n) Time and O(n) Space
     def sortedListToBST(self, head):
         arr = []
         curr = head
@@ -45,3 +46,35 @@ class Solution:
                 return node
 
         return helper(0, len(arr) - 1)
+
+    def findMid(self, head):
+        previous = None
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            previous = slow
+            slow = slow.next
+            fast = fast.next.next
+
+        if previous:
+            previous.next = None
+
+        return slow
+
+    # O(n log n) time and log(n) space
+    def sortedListToBST2(self, head: ListNode) -> TreeNode:
+        if not head:
+            return None
+
+        mid = self.findMid(head)
+
+        node = TreeNode(mid.val)
+
+        if head == mid:
+            return node
+
+        node.left = self.sortedListToBST2(head)
+        node.right = self.sortedListToBST2(mid.next)
+
+        return node
