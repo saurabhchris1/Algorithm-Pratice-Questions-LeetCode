@@ -25,15 +25,15 @@ class TreeNode:
 
 class Solution:
     def sortedArrayToBST(self, nums):
-        def helper(nums, left, right):
+        def helper(left, right):
             if left <= right:
                 mid = left + ((right - left) // 2)
 
                 newnode = TreeNode(nums[mid])
 
-                newnode.left = helper(nums, left, mid - 1)
-                newnode.right = helper(nums, mid + 1, right)
+                newnode.left = helper(left, mid - 1)
+                newnode.right = helper(mid + 1, right)
 
                 return newnode
 
-        return helper(nums, 0, len(nums) - 1)
+        return helper(0, len(nums) - 1)
