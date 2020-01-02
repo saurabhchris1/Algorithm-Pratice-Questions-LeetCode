@@ -42,6 +42,7 @@ if __name__ == "__main__":
     for i in arr2[1:]:
         n2.next = ListNode(i)
         n2 = n2.next
+    node1 = None
     output = Solution().merge(node1, node2)
 
     while output:
