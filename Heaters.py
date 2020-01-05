@@ -28,7 +28,7 @@
 
 class Solution:
     def findRadius(self, houses, heaters):
-        houses.sort();
+        houses.sort()
         heaters.sort()
         heaters = [float("-inf")] + heaters + [float("inf")]
 
