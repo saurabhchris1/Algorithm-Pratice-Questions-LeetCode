@@ -18,28 +18,43 @@ class ListNode(object):
 
 
 class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
-        return self.addTwoNumbersHelper(l1, l2, 0)
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
 
-    def addTwoNumbersHelper(self, l1, l2, c):
-        val = l1.val + l2.val + c
-        c = val // 10
-        ret = ListNode(val % 10)
+        list1 = l1
+        list2 = l2
+        res = []
+        carry = 0
 
-        if l1.next != None or l2.next != None:
-            if not l1.next:
-                l1.next = ListNode(0)
-            if not l2.next:
-                l2.next = ListNode(0)
-            ret.next = self.addTwoNumbersHelper(l1.next, l2.next, c)
-        elif c:
-            ret.next = ListNode(c)
-        return ret
+        while list1 is not None and list2 is not None:
+            currSum = list1.val + list2.val + carry
+            res.append(currSum % 10)
+            carry = currSum // 10
+
+            list1 = list1.next
+            list2 = list2.next
+
+        while list1 is not None:
+            currSum = list1.val + carry
+            res.append(currSum % 10)
+            carry = currSum // 10
+            list1 = list1.next
+
+        while list2 is not None:
+            currSum = list2.val + carry
+            res.append(currSum % 10)
+            carry = currSum // 10
+            list2 = list2.next
+
+        if carry:
+            res.append(carry)
+
+        newnode = ListNode(0)
+        node = newnode
+        for num in res:
+            node.next = ListNode(num)
+            node = node.next
+
+        return newnode.next
 
 
 if __name__ == "__main__":
