@@ -16,7 +16,7 @@
 #  1   2
 # Return true, because t has the same structure and node values with a subtree of s.
 # Example 2:
-# Given tree s:
+# Given tree s: 
 #
 #      3
 #     / \
