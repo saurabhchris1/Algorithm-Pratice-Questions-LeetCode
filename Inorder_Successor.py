@@ -20,7 +20,7 @@ class TreeNode:
 
 
 class Solution:
-    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+    def inorderSuccessor(self, root, p):
 
         if p.right:
             curr = p.right
