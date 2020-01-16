@@ -15,7 +15,7 @@
 # temp | dir | 0
 # test.html | file | 10
 #
-# you will be given an API getNodes("home") which will give you return you an array of dict
+# you will be given an API getNodes("home") which will return you an array of dict
 #
 # [{name: "src"}, {name: "temp"}, {name:"test.html", lines: 10}]
 # [{name: "A.JS", lines:4}]
