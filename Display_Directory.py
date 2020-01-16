@@ -1,3 +1,26 @@
+# -home
+# 	-src
+# 	-A.JS (lines:4)
+# 	-B.JS(lines:3)
+# 	-test
+# 		-C.js (lines:2)
+# 	-temp
+# 	-test.html(lines:10)
+# -images
+#
+# create a func displayDirectory("home")
+# // Name of file/directory | File or Dir | Total # of lines inside the node
+#
+# src | dir | 4
+# temp | dir | 0
+# test.html | file | 10
+#
+# you will be given an API getNodes("home") which will give you return you an array of dict
+#
+# [{name: "src"}, {name: "temp"}, {name:"test.html", lines: 10}]
+# [{name: "A.JS", lines:4}]
+
+
 class Solution:
     def displayDir(self, dirName):
         res = []
