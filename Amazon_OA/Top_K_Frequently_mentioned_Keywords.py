@@ -54,16 +54,16 @@ class Solution:
         keywords_set = set(keywords)
 
         for review in reviews:
-            review_words = review.lower().split(' ')
+            review_words = set(review.lower().split(' '))
 
             review_words_temp = collections.defaultdict(int)
             for word in review_words:
 
                 word = re.sub('[^a-z]', '', word)
 
-                if word in keywords_set and word not in review_words_temp:
+                if word in keywords_set:
                     keywords_freq[word] += 1
-                    review_words_temp[word] += 1
+
         print (keywords_freq)
 
         heap = [(-freq, word) for word, freq in keywords_freq.items()]
