@@ -39,7 +39,7 @@ class Node:
 
 
 class Solution:
-    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+    def suggestedProducts(self, products, searchWord):
 
         self.build(products)
         res = []
@@ -90,3 +90,16 @@ class Solution:
 
         for char in node.children:
             self.dfs(node.children[char], prefix + char, words)
+
+    def dfs_iterative(self, node, prefix, words):
+        stack = [(node, prefix)]
+
+        while len(stack):
+            (node, prefix) = stack.pop()
+
+            if node.isWord:
+                words.append(prefix)
+
+            for char in node.children:
+                child = node.children[char]
+                stack.append((node.children[char], prefix + char))
