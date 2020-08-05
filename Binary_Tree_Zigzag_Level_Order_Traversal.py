@@ -65,3 +65,29 @@ class Solution:
             current = collections.deque()
 
         return res
+
+    def zigzagLevelOrder(self, root):
+
+        if not root:
+            return []
+
+        results = []
+
+        def dfs(node, level):
+            if level == len(results):
+                results.append(collections.deque([]))
+
+            if level % 2 == 0:
+                results[level].append(node.val)
+
+            else:
+                results[level].appendleft(node.val)
+
+            if node.left:
+                dfs(node.left, level + 1)
+            if node.right:
+                dfs(node.right, level + 1)
+
+        dfs(root, 0)
+
+        return results
