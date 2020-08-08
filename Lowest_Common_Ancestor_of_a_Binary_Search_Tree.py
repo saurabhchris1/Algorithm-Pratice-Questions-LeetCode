@@ -30,6 +30,29 @@ class TreeNode:
 
 class Solution:
     def lowest(self, root, p, q):
-        parent = root.val
-        pval = p.val
-        qval = q.val
+        value = root.val
+        pVal = p.val
+        qVal = q.val
+
+        if pVal > value and qVal > value:
+            return self.lowest(root.right, p, q)
+        elif pVal < value and qVal < value:
+            return self.lowest(root.left, p, q)
+
+        else:
+            return root
+
+    def lowest_iterative(self, root, p, q):
+        current = root
+        pVal = p.val
+        qVal = q.val
+
+        while current:
+            value = current.val
+
+            if pVal > value and qVal > value:
+                current = current.right
+            elif pVal < value and qVal < value:
+                current = current.left
+            else:
+                return current
