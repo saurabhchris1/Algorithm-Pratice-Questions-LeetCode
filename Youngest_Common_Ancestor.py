@@ -39,3 +39,31 @@ class Solution:
             return left
 
         return node
+
+    def iterative(self, root, p, q):
+
+        stack = [root]
+        parent = {root: None}
+
+        while p not in parent or q not in parent:
+
+            node = stack.pop()
+
+            if node.left:
+                stack.append(node.left)
+                parent[node.left] = node
+
+            if node.right:
+                stack.append(node.right)
+                parent[node.right] = node
+
+        ancestor = set()
+
+        while p:
+            ancestor.add(p)
+            p = parent[p]
+
+        while q not in ancestor:
+            q = parent[q]
+
+        return q
