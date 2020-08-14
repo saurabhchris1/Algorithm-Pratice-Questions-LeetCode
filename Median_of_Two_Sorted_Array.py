@@ -17,46 +17,40 @@
 #
 # The median is (2 + 3)/2 = 2.5
 
+class Solution:
+    def find_median_sorted_arrays(self, nums1, nums2):
+        if len(nums1) > len(nums2):
+            return self.find_median_sorted_arrays(nums2, nums1)
 
-def find_median_sorted_arrays(nums1, nums2):
-    arr = nums1 + nums2
-    i = j = k = 0
+        x = len(nums1)
+        y = len(nums2)
 
-    while i < len(nums1) and j < len(nums2):
+        start = 0
+        end = x
 
-        if nums1[i] < nums2[j]:
+        while start <= end:
 
-            arr[k] = nums1[i]
-            i += 1
+            partitionX = (start + end) // 2
 
-        else:
-            arr[k] = nums2[j]
-            j += 1
+            partitionY = ((x + y + 1) // 2) - partitionX
 
-        k += 1
+            maxLeftX = float("-inf") if partitionX == 0 else nums1[partitionX - 1]
+            minRightX = float("inf") if partitionX == x else nums1[partitionX]
 
-    while i < len(nums1):
-        arr[k] = nums1[i]
+            maxLeftY = float("-inf") if partitionY == 0 else nums2[partitionY - 1]
+            minRightY = float("inf") if partitionY == y else nums2[partitionY]
 
-        i += 1
-        k += 1
+            if maxLeftX <= minRightY and maxLeftY <= minRightX:
 
-    while j < len(nums2):
-        arr[k] = nums2[j]
+                if (x + y) % 2 == 0:
+                    return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2
+                else:
+                    return max(maxLeftX, maxLeftY)
 
-        j += 1
-        k += 1
-
-    if len(arr) % 2 == 0:
-        print("Entered if")
-        m = (len(arr) // 2) - 1
-        print(m, arr[m], arr[m + 1])
-        return (arr[m] + arr[m + 1]) / 2
-
-    else:
-        m = (len(arr) // 2)
-
-        return arr[m]
+            elif maxLeftX > minRightY:
+                end = partitionX - 1
+            else:
+                start = partitionX + 1
 
 
 if __name__ == '__main__':
@@ -65,5 +59,7 @@ if __name__ == '__main__':
     ex3 = [1, 3]
     ex4 = [2]
 
-    print("The median of arrays : " + str(ex1) + " " + str(ex2) + " is : " + str(find_median_sorted_arrays(ex1, ex2)))
-    print("The median of arrays : " + str(ex3) + " " + str(ex4) + " is : " + str(find_median_sorted_arrays(ex3, ex4)))
+    print("The median of arrays : " + str(ex1) + " " + str(ex2) + " is : " + str(
+        Solution().find_median_sorted_arrays(ex1, ex2)))
+    print("The median of arrays : " + str(ex3) + " " + str(ex4) + " is : " + str(
+        Solution().find_median_sorted_arrays(ex3, ex4)))
