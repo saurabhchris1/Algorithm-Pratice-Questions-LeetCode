@@ -17,25 +17,17 @@
 class Solution:
     def reverse(x):
 
-        num = 0
-        is_negative = False
-        if x < 0:
-            is_negative = True
-            x = -1 * x
+        res = 0
+        sign = 1 if x > 0 else -1
+        x *= sign
 
-        while x // 10 > 0:
-            right = x % 10
-
-            num = num * 10 + right
-
+        while x:
+            pop = x % 10
+            res = res * 10 + pop
+            if res > pow(2, 31) - 1 or res < -pow(2, 31):
+                return 0
             x = x // 10
 
-        num = num * 10 + x
+        res = res if sign > 0 else res * sign
 
-        if num < pow(-2, 31) or num > pow(2, 31) - 1:
-            return 0
-
-        if is_negative:
-            return num * -1
-
-        return num
+        return res
