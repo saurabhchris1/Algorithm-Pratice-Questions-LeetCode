@@ -12,10 +12,10 @@ class ParkingSpotType(Enum):
 
 
 class Vehicle(ABC):
-    def __init__(self, licenceNum, vehicle_type, ticket):
+    def __init__(self, licenceNum, vehicle_type, ticket=None):
         self.__vehicle_type = vehicle_type
         self.__licenceNum = licenceNum
-        self.__ticket = None
+        self.__ticket = ticket
 
     def assignTicket(self, ticket):
         self.ticket = ticket
