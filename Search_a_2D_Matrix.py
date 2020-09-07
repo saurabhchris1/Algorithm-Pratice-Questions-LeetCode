@@ -25,7 +25,7 @@
 
 
 class Solution:
-    def searchMatrix(self, matrix:, target):
+    def searchMatrix(self, matrix, target):
 
         m = len(matrix)
 
