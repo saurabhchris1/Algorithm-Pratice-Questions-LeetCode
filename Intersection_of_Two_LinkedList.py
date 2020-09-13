@@ -39,6 +39,17 @@ class Solution:
             node = node.next
         return counter
 
+    def findIntersection(self, headA, headB):
+
+        l1 = headA
+        l2 = headB
+
+        while l1 != l2:
+            l1 = headB if not l1 else l1 = l1.next
+            l2 = headA if not l2 else l2 = l2.next
+
+        return l1
+
 
 if __name__ == "__main__":
     arr1 = [4, 1]
