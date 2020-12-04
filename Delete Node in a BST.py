@@ -43,54 +43,47 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# Definition for a binary tree node.
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution:
-    def deleteNode(self, root, key):
-        return self.remove(root, key)
-
-    def remove(self, node, value, parent=None):
-        current = node
-
-        while current:
-            if value > current.val:
-                parent = current
-                current = current.right
-            elif value < current.val:
-                parent = current
-                current = current.left
-
-            else:
-                if current.left and current.right:
-                    current.val = self.getMin(current.right)
-                    self.remove(current.right, current.val, current)
-                elif parent is None:
-                    if current.left:
-                        current.val = current.left.val
-                        current.right = current.left.right
-                        current.left = current.left.left
-                    elif current.right:
-                        current.val = current.right.val
-                        current.left = current.right.left
-                        current.right = current.right.right
-
-                    else:
-                        return None
-                        break
-
-                elif parent.left == current:
-                    parent.left = current.left if current.left else current.right
-                elif parent.right == current:
-                    parent.right = current.left if current.left else current.right
-
-                break
-
-        return node
-
-    def getMin(self, node):
-
-        current = node
+    def successor(self, node):
+        current = node.right
         while current.left:
             current = current.left
+        return current.val
+
+    def predecessor(self, node):
+        current = node.left
+        while current.right:
+            current = current.right
 
         return current.val
+
+    def deleteNode(self, root, key):
+
+        if not root:
+            return None
+
+        if key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
+        else:
+            if not root.left and not root.right:
+                root = None
+            elif root.right:
+                root.val = self.successor(root)
+                root.right = self.deleteNode(root.right, root.val)
+            else:
+                root.val = self.predecessor(root)
+                root.left = self.deleteNode(root.left, root.val)
+
+        return root
