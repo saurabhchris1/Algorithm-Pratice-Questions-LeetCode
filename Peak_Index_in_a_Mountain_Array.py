@@ -17,16 +17,17 @@
 
 
 class Solution:
-    def peakIndexInMountainArray(self, A):
+    def peakIndexInMountainArray(self, arr):
 
-        l = 0
-        r = len(A) - 1
+        left = 0
+        right = len(arr) - 1
 
-        while l <= r:
-            m = l + (r - l) // 2
-            if m >= 1 and A[m] > A[m - 1] and A[m] > A[m + 1]:
-                return m
-            elif A[m] > A[m - 1]:
-                l = m + 1
+        while left < right:
+            mid = left + (right - left) // 2
+
+            if arr[mid] < arr[mid + 1]:
+                left = mid + 1
             else:
-                r = m - 1
+                right = mid
+
+        return right
