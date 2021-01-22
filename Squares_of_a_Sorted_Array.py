@@ -13,21 +13,29 @@
 
 
 class Solution:
-    def sortedSquares(self, A):
-        negative_stack = []
-        res = []
+    def sortedSquares(self, nums):
+        N = len(nums)
+        j = 0
+        while j < N and nums[j] < 0:
+            j += 1
 
-        for num in A:
-            if num < 0:
-                negative_stack.append(num)
-                continue
+        i = j - 1
+        ans = []
 
-            while len(negative_stack) and -negative_stack[-1] <= num:
-                res.append(negative_stack.pop() ** 2)
+        while i >= 0 and j < N:
+            if nums[i] ** 2 < nums[j] ** 2:
+                ans.append(nums[i] ** 2)
+                i -= 1
+            else:
+                ans.append(nums[j] ** 2)
+                j += 1
 
-            res.append(num ** 2)
+        while i >= 0:
+            ans.append(nums[i] ** 2)
+            i -= 1
 
-        while len(negative_stack):
-            res.append(negative_stack.pop() ** 2)
+        while j < N:
+            ans.append(nums[j] ** 2)
+            j += 1
 
-        return res
+        return ans
