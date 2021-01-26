@@ -21,26 +21,41 @@
 
 class Solution:
     def islandPerimeter(self, grid):
-        if len(grid) == 0:
-            return 0
+        # if len(grid) == 0:
+        #     return 0
+        #
+        # def findPerimeter(row, col):
+        #     side = 4
+        #     if row - 1 >= 0 and grid[row - 1][col] == 1:
+        #         side -= 1
+        #     if row + 1 < len(grid) and grid[row + 1][col] == 1:
+        #         side -= 1
+        #     if col - 1 >= 0 and grid[row][col - 1] == 1:
+        #         side -= 1
+        #     if col + 1 < len(grid[0]) and grid[row][col + 1] == 1:
+        #         side -= 1
+        #
+        #     return side
+        #
+        # perimeter = 0
+        # for r in range(len(grid)):
+        #     for c in range(len(grid[0])):
+        #         if grid[r][c] == 1:
+        #             perimeter += findPerimeter(r, c)
+        #
+        # return perimeter
 
-        def findPerimeter(row, col):
-            side = 4
-            if row - 1 >= 0 and grid[row - 1][col] == 1:
-                side -= 1
-            if row + 1 < len(grid) and grid[row + 1][col] == 1:
-                side -= 1
-            if col - 1 >= 0 and grid[row][col - 1] == 1:
-                side -= 1
-            if col + 1 < len(grid[0]) and grid[row][col + 1] == 1:
-                side -= 1
+        rows, cols = len(grid), len(grid[0])
+        res = 0
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1:
+                    res += 4
 
-            return side
+                    if row > 0 and grid[row - 1][col] == 1:
+                        res -= 2
 
-        perimeter = 0
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
-                if grid[r][c] == 1:
-                    perimeter += findPerimeter(r, c)
+                    if col > 0 and grid[row][col - 1] == 1:
+                        res -= 2
 
-        return perimeter
+        return res
