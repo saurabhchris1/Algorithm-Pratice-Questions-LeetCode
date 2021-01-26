@@ -18,14 +18,13 @@ import collections
 class Solution:
     # O(n) Time and O(n) space
     def majorityElement(self, nums):
-        dict = collections.Counter(nums)
-        n = len(nums) / 2
-        for k, v in dict.items():
-            if v > n:
-                return k
+        count = 0
+        res = 0
 
-    # O(n log n) Time and O(1) Space
-    def majorityElement2(self, nums):
-        nums.sort()
+        for num in nums:
+            if count == 0:
+                res = num
 
-        return nums[len(nums) // 2]
+            count += 1 if num == res else -1
+
+        return res
