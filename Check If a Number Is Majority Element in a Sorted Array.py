@@ -22,6 +22,7 @@ import collections
 
 
 class Solution:
+    # O(n) Spcae and O(n) Time
     def isMajorityElement(self, nums, target):
         dict = collections.Counter(nums)
         if len(nums) == 1:
@@ -32,3 +33,55 @@ class Solution:
             return True
 
         return False
+
+    # O(1) Space and O(n) Time
+
+    def isMajorityElement2(self, nums, target):
+
+        leftIdx = self.search(nums, target, True)
+        rightIdx = self.search(nums, target, False)
+        if not leftIdx and not rightIdx:
+            return False
+        if rightIdx - leftIdx + 1 > len(nums) / 2:
+            return True
+        return False
+
+    def search(self, nums, target, isLeft):
+        left = 0
+        right = len(nums) - 1
+
+        if isLeft:
+            while left <= right:
+                mid = left + (right - left) // 2
+
+                if nums[mid] == target:
+                    if mid != 0:
+                        if nums[mid - 1] != target:
+                            return mid
+                        else:
+                            right = mid - 1
+                    else:
+                        return mid
+                elif nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return None
+        else:
+            while left <= right:
+                mid = left + (right - left) // 2
+
+                if nums[mid] == target:
+                    if mid != len(nums) - 1:
+                        if nums[mid + 1] != target:
+                            return mid
+                        else:
+                            left = mid + 1
+                    else:
+                        return mid
+                elif nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+
+            return None
