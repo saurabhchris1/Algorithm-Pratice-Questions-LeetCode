@@ -42,18 +42,21 @@ class Solution:
     def findTarget(self, root, k):
 
         dict = {}
-
         queue = collections.deque()
         queue.append(root)
 
-        while len(queue):
-            node = queue.popleft()
+        while queue:
+            num = len(queue)
+            for _ in range(num):
+                node = queue.popleft()
 
-            if k - node.val in dict:
-                return True
-            dict[node.val] = 1
+                if k - node.val in dict:
+                    return True
+                dict[node.val] = 1
 
-            if node.left is not None:
-                queue.append(node.left)
-            if node.right is not None:
-                queue.append(node.right)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+        return False
