@@ -41,6 +41,22 @@ class Solution:
 
         return helper(root, float('-inf'), float('inf'))
 
+    def isValidBSTIterative(self, root):
+        stack = [(root, float("-inf"), float("inf"))]
+
+        while stack:
+
+            node, lower, upper = stack.pop()
+
+            if node.val <= lower or node.val >= upper:
+                return False
+            if node.left:
+                stack.append((node.left, lower, node.val))
+            if node.right:
+                stack.append((node.right, node.val, upper))
+
+        return True
+
 
 node = TreeNode(5)
 node.left = TreeNode(4)
