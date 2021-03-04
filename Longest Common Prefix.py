@@ -20,30 +20,15 @@
 def longestCommonPrefix(strs):
     if len(strs) == 0:
         return ""
-    elif len(strs) == 1:
-        return strs[0]
 
-    commmon_prefix = strs[0]
+    for i in range(len(strs[0])):
+        char = strs[0][i]
 
-    for i in range(1, len(strs)):
-        if commmon_prefix == "" or strs[i] == "":
-            return ""
+        for j in range(1, len(strs)):
+            if i == len(strs[j]) or strs[j][i] != char:
+                return strs[0][:i]
 
-        for j in range(len(strs[i])):
-
-            if j > len(commmon_prefix) - 1:
-                commmon_prefix = commmon_prefix[:j]
-
-                break
-
-            elif commmon_prefix[j] != strs[i][j]:
-                commmon_prefix = commmon_prefix[:j]
-
-                break
-
-        commmon_prefix = commmon_prefix[:j + 1]
-
-    return commmon_prefix
+    return strs[0]
 
 
 if __name__ == "__main__":
