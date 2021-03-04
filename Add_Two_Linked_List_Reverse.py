@@ -19,42 +19,23 @@ class ListNode(object):
 
 class Solution(object):
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-
-        list1 = l1
-        list2 = l2
-        res = []
+        res = 0
         carry = 0
+        newList = ListNode(0)
+        node = newList
+        while l1 or l2 or carry:
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
 
-        while list1 is not None and list2 is not None:
-            currSum = list1.val + list2.val + carry
-            res.append(currSum % 10)
-            carry = currSum // 10
-
-            list1 = list1.next
-            list2 = list2.next
-
-        while list1 is not None:
-            currSum = list1.val + carry
-            res.append(currSum % 10)
-            carry = currSum // 10
-            list1 = list1.next
-
-        while list2 is not None:
-            currSum = list2.val + carry
-            res.append(currSum % 10)
-            carry = currSum // 10
-            list2 = list2.next
-
-        if carry:
-            res.append(carry)
-
-        newnode = ListNode(0)
-        node = newnode
-        for num in res:
-            node.next = ListNode(num)
+            currentSum = val1 + val2 + carry
+            node.next = ListNode(currentSum % 10)
+            carry = currentSum // 10
             node = node.next
 
-        return newnode.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        return newList.next
 
 
 if __name__ == "__main__":
