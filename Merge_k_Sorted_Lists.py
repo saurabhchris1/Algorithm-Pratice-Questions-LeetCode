@@ -33,6 +33,19 @@ class Solution:
 
         return klist
 
+    # Divide and Conquer O(N log(k))
+    def mergeKLists2(self, lists):
+        amount = len(lists)
+        interval = 1
+
+        while interval < amount:
+            for i in range(0, amount - interval, interval * 2):
+                lists[i] = self.merge(lists[i], lists[i + interval])
+
+            interval *= 2
+
+        return lists[0] if amount > 0 else None
+
     def mergeTwoLlist(self, l1, l2):
         list1 = l1
         list2 = l2
