@@ -42,18 +42,19 @@
 
 class Solution:
     def compress(self, chars):
-        n = len(chars)
-        i = 0
-        count = 1
-        for j in range(1, n + 1):
-            if j < n and chars[j] == chars[j - 1]:
-                count += 1
-            else:
-                chars[i] = chars[j - 1]
-                i += 1
-                if count > 1:
-                    for d in str(count):
-                        chars[i] = d
-                        i += 1
-                count = 1
-        return i
+        write, anchor = 0, 0
+
+        for i, char in enumerate(chars):
+
+            if i + 1 == len(chars) or chars[i] != chars[i + 1]:
+                chars[write] = chars[anchor]
+                write += 1
+
+                if i > anchor:
+
+                    for digit in str(i - anchor + 1):
+                        chars[write] = digit
+                        write += 1
+                anchor = i + 1
+
+        return write
