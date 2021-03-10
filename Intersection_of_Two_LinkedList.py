@@ -10,45 +10,14 @@ class ListNode:
 
 class Solution:
     def getIntersectionNode(self, headA, headB):
-        nodeA = headA
-        nodeB = headB
-        countA = self.count(nodeA)
-        countB = self.count(nodeB)
-        skip = abs(countA - countB)
+        pA = headA
+        pB = headB
 
-        if countA - countB > 0:
-            for i in range(skip):
-                nodeA = nodeA.next
-        else:
-            for i in range(skip):
-                nodeB = nodeB.next
+        while pA != pB:
+            pA = headB if not pA else pA.next
+            pB = headA if not pB else pB.next
 
-        while nodeA is not None and nodeB is not None:
-            if nodeA.next == nodeB:
-                return nodeA.next
-            if nodeA == nodeB:
-                return nodeA
-            nodeA = nodeA.next
-            nodeB = nodeB.next
-        return None
-
-    def count(self, node):
-        counter = 0
-        while node:
-            counter += 1
-            node = node.next
-        return counter
-
-    def findIntersection(self, headA, headB):
-
-        l1 = headA
-        l2 = headB
-
-        while l1 != l2:
-            l1 = headB if not l1 else l1 = l1.next
-            l2 = headA if not l2 else l2 = l2.next
-
-        return l1
+        return pA
 
 
 if __name__ == "__main__":
