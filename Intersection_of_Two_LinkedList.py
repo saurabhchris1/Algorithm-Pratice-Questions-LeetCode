@@ -18,7 +18,7 @@ class Solution:
             pB = headA if not pB else pB.next
 
         return pA
-
+ 
 
 if __name__ == "__main__":
     arr1 = [4, 1]
