@@ -46,7 +46,7 @@ class Solution:
                 return self.visited[node]
 
         return None
-
+    # Time: O(n) Space: O(n)
     def copyRandomList(self, head):
         if not head:
             return head
@@ -64,3 +64,33 @@ class Solution:
             new_node = new_node.next
 
         return self.visited[head]
+
+    # Time: O(n) Space: O(1)
+    def copyRandomListOptimized(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+
+        current = head
+        while current:
+            newNode = Node(current.val, None, None)
+
+            newNode.next = current.next
+            current.next = newNode
+            current = newNode.next
+
+        current = head
+        while current:
+            current.next.random = current.random.next if current.random else None
+            current = current.next.next
+
+        old = head
+        new = head.next
+        newHead = new
+        while old:
+            old.next = old.next.next
+            new.next = new.next.next if new.next else None
+
+            old = old.next
+            new = new.next
+
+        return newHead
