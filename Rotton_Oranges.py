@@ -30,45 +30,38 @@ from collections import deque
 class Solution:
 
     def reqTme(self, grid):
-        queue = deque()
-        rows = len(grid)
-        cols = len(grid[0])
+        queue = collections.deque([])
         fresh = 0
-
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 2:
-                    queue.append((r, c))
-                elif grid[r][c] == 1:
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == 2:
+                    queue.append((row, col))
+                elif grid[row][col] == 1:
                     fresh += 1
 
-        queue.append((-1, -1))
-        minutes_elapsed = -1
-        directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-        print(queue)
-        while queue:
-            print (queue)
-            row, col = queue.popleft()
+        mins = 0
 
-            if row == -1:
-                minutes_elapsed += 1
-                if queue:
-                    queue.append((-1, -1))
+        while queue and fresh:
 
+            currNums = len(queue)
+            mins += 1
 
+            for _ in range(currNums):
+                rottenMango = queue.popleft()
 
-            else:
+                directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
                 for d in directions:
-                    neighbour_row, neighbour_col = row + d[0], col + d[1]
+                    row = rottenMango[0] + d[0]
+                    col = rottenMango[1] + d[1]
 
-                    if rows > neighbour_row >= 0 and cols > neighbour_col >= 0:
-
-                        if grid[neighbour_row][neighbour_col] == 1:
-                            grid[neighbour_row][neighbour_col] = 2
+                    if row >= 0 and row < len(grid) and col >= 0 and col < len(grid[0]):
+                        if grid[row][col] == 1:
+                            grid[row][col] = 2
                             fresh -= 1
-                            queue.append((neighbour_row, neighbour_col))
+                            queue.append((row, col))
 
-        return minutes_elapsed if fresh == 0 else -1
+        return -1 if fresh > 0 else mins
 
 
 if __name__ == "__main__":
