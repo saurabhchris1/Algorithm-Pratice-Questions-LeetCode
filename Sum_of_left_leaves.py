@@ -19,24 +19,29 @@ class TreeNode:
 
 class Solution:
     # Iterative
-    def sum_of_Left_Leaves(self, root):
+    def sumOfLeftLeaves(self, root):
+
         if not root:
             return 0
-        node = root
-        stack = []
-        stack.append(node)
-        lsum = 0
-        while len(stack) > 0:
-            n = stack.pop()
 
-            if n.left is not None:
-                if n.left.left is not None and n.left.right is not None:
-                    lsum += n.left.val
+        stack = [root]
+        res = 0
+        while stack:
+            node = stack.pop()
 
-        stack.append(n.left)
-        if n.right is not None:
-            stack.append(n.right)
-        return lsum
+            if self.isLeaf(node.left):
+                res += node.left.val
+
+            if node.right:
+                stack.append(node.right)
+
+            if node.left:
+                stack.append(node.left)
+
+        return res
+
+    def isLeaf(self, node):
+        return node is not None and not node.left and not node.right
 
     def sum_of_Left_Leaves_recurssive(self, root):
         if not root:
