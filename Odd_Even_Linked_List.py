@@ -19,26 +19,18 @@ class Solution:
     def oddeven(self, head):
 
         if not head:
-            return []
+            return None
+        odd = head
+        even = head.next
+        evenHead = even
 
-        odds = ListNode(0)
-        evens = ListNode(0)
-        oddshead = odds
-        evenshead = evens
-        isodd = True
-
-        while head:
-            if isodd:
-                odds.next = head
-                odds = odds.next
-            else:
-                evens.next = head
-                evens = evens.next
-            isodd = not isodd
-            head = head.next
-        evens.next = None
-        odds.next = evenshead.next
-        return oddshead.next
+        while even and even.next:
+            odd.next = even.next
+            odd = odd.next
+            even.next = odd.next
+            even = even.next
+        odd.next = evenHead
+        return head
 
 
 if __name__ == "__main__":
