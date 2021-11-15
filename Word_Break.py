@@ -21,39 +21,27 @@
 # Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
 # Output: false
 
+from collections import deque
+
 
 class Solution:
     # Brute Force 2^n Time and O(n) Space
     def wordBreak(self, s, wordDict):
+        wordSet = set(wordDict)
+        visited = set()
+        queue = deque()
 
-        # if not s:
-        #     return True
-        #
-        # for word in wordDict:
-        #
-        #     if s[0:len(word)] == word and self.wordBreak(s[len(word):], wordDict):
-        #         return True
-        #
-        # return False
+        queue.append(0)
+        while queue:
+            start = queue.popleft()
+            if start in visited:
+                continue
+            for end in range(start + 1, len(s) + 1):
+                if s[start:end] in wordSet:
+                    queue.append(end)
+                    if end == len(s):
+                        return True
+            visited.add(start)
 
-        memo = {}
-
-        return self.helper(s, wordDict, memo)
-
-    def helper(self, s, wordDict, memo):
-
-        if not s:
-            return True
-        elif s in memo:
-            return memo[s]
-
-        for word in wordDict:
-
-            if s[0:len(word)] == word and self.helper(s[len(word):], wordDict, memo):
-                memo[s] = True
-                return True
-
-        memo[s] = False
         return False
-
-    # Using Memo O(n^2) Time and O(n) Space
+    # O(n^3) Time and O(n) Space
