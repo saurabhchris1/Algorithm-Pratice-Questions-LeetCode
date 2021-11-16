@@ -57,6 +57,36 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
 
+        def sortedListToBST1(self, head):
+            self.head = head
+            size = self.getSize(head)
+
+            def convert(l, r):
+                if l > r:
+                    return None
+
+                mid = l + (r - l) // 2
+
+                left = convert(l, mid - 1)
+                node = TreeNode(self.head.val)
+                node.left = left
+
+                self.head = self.head.next
+
+                node.right = convert(mid + 1, r)
+
+                return node
+
+            return convert(0, size - 1)
+
+        def getSize(self, node):
+            curr = node
+            count = 0
+            while curr:
+                count += 1
+                curr = curr.next
+            return count
+
         if previous:
             previous.next = None
 
