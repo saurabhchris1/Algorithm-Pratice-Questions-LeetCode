@@ -33,7 +33,7 @@
 # reverse-sorted array, I have to count how many numbers came before it. This represents the number
 # of steps that was taken to reduce these numbers to the current number
 
-
+# Reference https://leetcode.com/discuss/interview-question/364618/ by Wei_lun
 
 def min_steps_balance(piles):
     """
