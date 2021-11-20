@@ -26,6 +26,8 @@
 # Output: false
 # Explanation: There is no way to reach at index 1 with value 0.
 
+from collections import deque
+
 
 class Solution:
     def canReach(self, arr, start):
@@ -37,5 +39,27 @@ class Solution:
             arr[start] = -arr[start]
 
             return self.canReach(arr, start + arr[start]) or self.canReach(arr, start - arr[start])
+
+        return False
+
+    def canReachUsingQueue(self, arr, start):
+        queue = deque()
+        queue.append(start)
+
+        while queue:
+            node = queue.popleft()
+
+            if arr[node] == 0:
+                return True
+
+            if arr[node] < 0:
+                continue
+
+            for nextNode in [node + arr[node], node - arr[node]]:
+
+                if 0 <= nextNode < len(arr):
+                    queue.append(nextNode)
+
+            arr[node] *= -1
 
         return False
