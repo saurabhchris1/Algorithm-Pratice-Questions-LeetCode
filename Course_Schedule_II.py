@@ -27,7 +27,7 @@ class Solution:
     gray = 1
     black = 2
 
-    def findOrder(self, numCourses, prerequisites:):
+    def findOrder(self, numCourses, prerequisites):
 
         graph = defaultdict(list)
 
