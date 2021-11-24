@@ -62,3 +62,50 @@ class Codec:
 
         values = iter(data.split())
         return helper(values)
+
+from collections import deque
+
+
+class Codec1:
+
+    def serialize(self, root):
+        res = []
+        queue = deque([root])
+
+        while queue:
+            node = queue.popleft()
+
+            if node:
+                res.append(str(node.val))
+                queue.append(node.left)
+                queue.append(node.right)
+
+            else:
+                res.append("#")
+
+        return " ".join(res)
+
+    def deserialize(self, data):
+
+        if data[0] == "#":
+            return
+
+        values = iter(data.split(" "))
+        root = TreeNode(int(next(values)))
+        queue = deque([root])
+
+        while queue:
+            num = len(queue)
+            for _ in range(num):
+                node = queue.popleft()
+                left = next(values)
+                right = next(values)
+
+                node.left = None if left == "#" else TreeNode(int(left))
+                node.right = None if right == "#" else TreeNode(int(right))
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        return root
