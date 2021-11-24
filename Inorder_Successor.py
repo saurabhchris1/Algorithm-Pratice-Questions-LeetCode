@@ -20,28 +20,53 @@ class TreeNode:
 
 
 class Solution:
-    def inorderSuccessor(self, root, p):
+    class Solution:
+        def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
 
-        if p.right:
-            curr = p.right
-            while curr.left:
-                curr = curr.left
-            return curr
+            self.successor = None
+            self.prev = None
 
-        stack, inorder = [], float('inf')
+            if p.right:
+                curr = p.right
+                while curr.left:
+                    curr = curr.left
+                self.successor = curr
 
-        while stack or root:
-            while root:
-                stack.append(root)
-                root = root.left
+            else:
+                self.inorder_iterative(root, p)
 
-            root = stack.pop()
+            return self.successor
 
-            if inorder == p.val:
-                return root
+        def inorder_iterative(self, node, p):
 
-            inorder = root.val
+            stack = []
+            curr = node
 
-            root = root.right
+            while curr or stack:
+                while curr:
+                    stack.append(curr)
+                    curr = curr.left
 
-        return None
+                curr = stack.pop()
+
+                if self.prev == p:
+                    self.successor = curr
+                    return
+
+                self.prev = curr
+                curr = curr.right
+
+        def inorder_recursive(self, node, p):
+
+            if not node:
+                return
+
+            self.inorder(node.left, p)
+
+            if self.prev == p and not self.successor:
+                self.successor = node
+                return
+
+            self.prev = node
+
+            self.inorder(node.right, p)
