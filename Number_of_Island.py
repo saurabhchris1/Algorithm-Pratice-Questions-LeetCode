@@ -23,47 +23,31 @@
 # Output: 3
 
 class Solution:
+    class Solution:
+        def numIslands(self, grid):
+            res = 0
+            visited = set()
+            for row in range(len(grid)):
+                for col in range(len(grid[0])):
 
-    def __init__(self, grid):
-        self.grid = grid
+                    if grid[row][col] == "1" and (row, col) not in visited:
+                        res += 1
+                        self.dfs(row, col, grid, visited)
 
-    def is_island(self):
+            return res
 
-        def sink_island(grid, r, c):
-            if grid[r][c] == '1':
-                grid[r][c] = 0
-            else:
+        def dfs(self, row, col, grid, visited):
+
+            if row < 0 or row >= len(grid) or col < 0 or col >= len(grid[0]) or (row, col) in visited:
                 return
-            if r - 1 >= 0:
-                sink_island(grid, r - 1, c)
-            if r + 1 < len(grid):
-                sink_island(grid, r + 1, c)
-            if c - 1 >= 0:
-                sink_island(grid, r, c - 1)
-            if c + 1 < len(grid[0]):
-                sink_island(grid, r, c + 1)
 
-        counter = 0
-        for i in range(len(self.grid)):
-            for j in range(len(self.grid[0])):
-                if self.grid[i][j] == '1':
-                    counter += 1
-                    sink_island(self.grid, i, j)
-        return counter
+            if grid[row][col] != "1":
+                return
 
+            visited.add((row, col))
 
-if __name__ == "__main__":
-    grid1 = [
-        ["1", "1", "1", "1", "0"],
-        ["1", "1", "0", "1", "0"],
-        ["1", "1", "0", "0", "0"],
-        ["0", "0", "0", "0", "0"]
-    ]
-    grid2 = [
-        ["1", "1", "0", "0", "0"],
-        ["1", "1", "0", "0", "0"],
-        ["0", "0", "1", "0", "0"],
-        ["0", "0", "0", "1", "1"]
-    ]
-    print(Solution(grid1).is_island())
-    print(Solution(grid2).is_island())
+            for rowOffset, colOffset in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                r = rowOffset + row
+                c = colOffset + col
+
+                self.dfs(r, c, grid, visited)
