@@ -46,6 +46,7 @@ class Node:
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
 
+from collections import deque
 
 class Solution:
 
@@ -68,3 +69,25 @@ class Solution:
             clonedNode.neighbors = [self.cloneGraph(neighbor) for neighbor in node.neighbors]
 
         return clonedNode
+
+    def cloneGraphIterative(self, node: 'Node') -> 'Node':
+
+        if not node:
+            return node
+
+        queue = deque([node])
+        visited = {node: Node(node.val, [])}
+
+        while queue:
+            n = queue.popleft()
+
+            for neighbor in n.neighbors:
+
+                if neighbor not in visited:
+                    visited[neighbor] = Node(neighbor.val, [])
+
+                    queue.append(neighbor)
+
+                visited[n].neighbors.append(visited[neighbor])
+
+        return visited[node]
