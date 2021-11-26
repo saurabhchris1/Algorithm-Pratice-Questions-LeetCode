@@ -51,3 +51,26 @@ class Solution:
                     queue.append(node.right)
 
         return root
+
+    def connect2(self, root):
+        if not root:
+            return None
+
+        leftMost = root
+
+        while leftMost.left:
+
+            node = leftMost
+
+            while node:
+
+                node.left.next = node.right
+
+                if node.next:
+                    node.right.next = node.next.left
+
+                node = node.next
+
+            leftMost = leftMost.left
+
+        return root
