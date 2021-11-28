@@ -25,30 +25,55 @@ class ListNode:
 
 
 class Solution:
+    # def rotateRight(self, head, k):
+    #     if not head:
+    #         return head
+    #     if not head.next:
+    #         return head
+    #
+    #     length = 0
+    #     curr = head
+    #     while curr:
+    #         length += 1
+    #         curr = curr.next
+    #
+    #     k = k % length
+    #     slow = fast = head
+    #
+    #     for _ in range(k):
+    #         fast = fast.next
+    #
+    #     while fast.next:
+    #         slow = slow.next
+    #         fast = fast.next
+    #
+    #     fast.next = head
+    #     head = slow.next
+    #     slow.next = None
+    #
+    #     return head
+
     def rotateRight(self, head, k):
         if not head:
             return head
+
         if not head.next:
             return head
 
-        length = 0
-        curr = head
-        while curr:
-            length += 1
-            curr = curr.next
+        oldTail = head
+        n = 1
+        while oldTail.next:
+            oldTail = oldTail.next
+            n += 1
+        oldTail.next = head
 
-        k = k % length
-        slow = fast = head
+        newTail = head
 
-        for _ in range(k):
-            fast = fast.next
+        for i in range(n - k % n - 1):
+            newTail = newTail.next
 
-        while fast.next:
-            slow = slow.next
-            fast = fast.next
+        newHead = newTail.next
 
-        fast.next = head
-        head = slow.next
-        slow.next = None
+        newTail.next = None
 
-        return head
+        return newHead
