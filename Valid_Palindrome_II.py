@@ -13,16 +13,29 @@
 
 class Solution:
     def validPalindrome(self, s):
+
         left = 0
         right = len(s) - 1
-        skip = 0
 
-        while left < right:
+        while left <= right:
+
             if s[left] != s[right]:
-                try1 = s[:left] + s[left + 1:]
-                try2 = s[:right] + s[right + 1:]
-                return try1 == try1[::-1] or try2 == try2[::-1]
+                try1 = self.isValid(s, left + 1, right)
+                try2 = self.isValid(s, left, right - 1)
 
+                return try1 or try2
+
+            left += 1
+            right -= 1
+
+        return True
+
+    def isValid(self, word, left, right):
+
+        while left <= right:
+
+            if word[left] != word[right]:
+                return False
             left += 1
             right -= 1
         return True
