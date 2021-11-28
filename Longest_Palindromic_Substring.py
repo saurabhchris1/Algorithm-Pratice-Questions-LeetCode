@@ -13,25 +13,32 @@
 
 
 class Solution:
-    def longestPalindrome(self, s):
-        currentLongest = [0, 1]
-
-        def checkPalindrome(string, leftidx, rightidx):
-
-            while leftidx >= 0 and rightidx < len(string):
-
-                if string[leftidx] != string[rightidx]:
-                    break
-
-                leftidx -= 1
-                rightidx += 1
-
-            return [leftidx + 1, rightidx]
+    def longestPalindrome(self, s: str) -> str:
+        maxVal = [0, (0, 0)]
 
         for i in range(len(s)):
-            odd = checkPalindrome(s, i - 1, i + 1)
-            even = checkPalindrome(s, i - 1, i)
-            longest = max(odd, even, key=lambda x: x[1] - x[0])
-            currentLongest = max(currentLongest, longest, key=lambda x: x[1] - x[0])
+            odd = self.maxValid(s, i, i)
+            even = self.maxValid(s, i, i + 1)
 
-        return s[currentLongest[0]: currentLongest[1]]
+            if even[1] - even[0] + 1 > maxVal[0]:
+                maxVal[0] = even[1] - even[0] + 1
+                maxVal[1] = (even[0], even[1])
+
+            if odd[1] - odd[0] + 1 > maxVal[0]:
+                maxVal[0] = odd[1] - odd[0] + 1
+                maxVal[1] = (odd[0], odd[1])
+
+        return s[maxVal[1][0]: maxVal[1][1] + 1]
+
+    def maxValid(self, word, left, right):
+
+        while left >= 0 and right < len(word):
+
+            if word[left] != word[right]:
+                break
+            left -= 1
+            right += 1
+
+        left += 1
+        right -= 1
+        return left, right
