@@ -27,20 +27,21 @@ class TreeNode:
 class Solution:
     def binaryTreePaths(self, root):
         res = []
-        path = ""
 
         def helper(node, path):
+
             if not node:
                 return
-            path += str(node.val) + "->"
+
             if not node.left and not node.right:
-                res.append(path[:-2])
+                res.append("->".join(path + [str(node.val)]))
                 return
 
-            helper(node.left, path)
-            helper(node.right, path)
+            helper(node.left, path + [str(node.val)])
+            helper(node.right, path + [str(node.val)])
 
-        helper(root, path)
+        helper(root, [])
+
         return res
 
     def binaryTreePathsIterative(self, root):
