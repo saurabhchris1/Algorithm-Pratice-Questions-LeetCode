@@ -42,19 +42,20 @@
 
 class Solution:
     def compress(self, chars):
-        write, anchor = 0, 0
+        p = 0
+        charStart = 0
 
-        for i, char in enumerate(chars):
+        for charEnd in range(len(chars)):
 
-            if i + 1 == len(chars) or chars[i] != chars[i + 1]:
-                chars[write] = chars[anchor]
-                write += 1
+            if len(chars) - 1 == charEnd or chars[charEnd] != chars[charEnd + 1]:
 
-                if i > anchor:
+                chars[p] = chars[charStart]
+                p += 1
 
-                    for digit in str(i - anchor + 1):
-                        chars[write] = digit
-                        write += 1
-                anchor = i + 1
+                if charEnd > charStart:
 
-        return write
+                    for c in str(charEnd - charStart + 1):
+                        chars[p] = c
+                        p += 1
+                charStart = charEnd + 1
+        return p
