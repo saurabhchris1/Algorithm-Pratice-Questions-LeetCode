@@ -37,10 +37,13 @@ class Solution:
     def groupAnagrams(self, strs):
         dict = collections.defaultdict(list)
 
-        def hashkey(anyword):
-            return "".join(sorted(anyword))
-
         for word in strs:
-            dict[hashkey(word)].append(word)
+            count = [0] * 26
+
+            for char in word:
+                charIdx = ord(char) - ord('a')
+                count[charIdx] += 1
+
+            dict[tuple(count)].append(word)
 
         return dict.values()
