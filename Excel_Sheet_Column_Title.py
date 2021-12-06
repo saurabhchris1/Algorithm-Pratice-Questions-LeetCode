@@ -31,6 +31,6 @@ class Solution:
         while columnNumber > 0:
             right = (columnNumber - 1) % 26
             columnNumber = (columnNumber - 1) // 26
-            res.append(chr(65 + right % 26))
+            res.append(chr(65 + right))
 
         return "".join(res[::-1])
