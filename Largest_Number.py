@@ -15,7 +15,10 @@ from functools import cmp_to_key
 class Solution:
     def largestNumber(self, nums):
 
-        res = [str(num) for num in sorted(nums, key=cmp_to_key(self.compare))]
+        res = []
+
+        for num in sorted(nums, key=cmp_to_key(self.compare)):
+            res.append(str(num))
 
         return "0" if res[0] == "0" else "".join(res)
 
@@ -23,5 +26,4 @@ class Solution:
 
         if str(a) + str(b) > str(b) + str(a):
             return -1
-        else:
-            return 1
+        return 1
