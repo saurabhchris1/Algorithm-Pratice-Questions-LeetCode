@@ -23,49 +23,39 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists):
-        if len(lists) == 0:
+        if not lists:
             return None
 
-        klist = lists[0]
+        return self.mergeSort(lists, 0, len(lists) - 1)
 
-        for i in range(1, len(lists)):
-            klist = self.mergeTwoLlist(klist, lists[i])
+    def mergeSort(self, lists, start, end):
 
-        return klist
+        if start == end:
+            return lists[start]
 
-    # Divide and Conquer O(N log(k))
-    def mergeKLists2(self, lists):
-        amount = len(lists)
-        interval = 1
+        mid = start + (end - start) // 2
 
-        while interval < amount:
-            for i in range(0, amount - interval, interval * 2):
-                lists[i] = self.merge(lists[i], lists[i + interval])
+        left = self.mergeSort(lists, start, mid)
+        right = self.mergeSort(lists, mid + 1, end)
 
-            interval *= 2
+        return self.merge(left, right)
 
-        return lists[0] if amount > 0 else None
+    def merge(self, list1, list2):
+        l1 = list1
+        l2 = list2
+        newList = ListNode(0)
+        curr = newList
 
-    def mergeTwoLlist(self, l1, l2):
-        list1 = l1
-        list2 = l2
-        head = ListNode(0)
-        newList = head
+        while l1 and l2:
 
-        while list1 and list2:
-
-            if list1.val <= list2.val:
-                newList.next = list1
-                list1 = list1.next
+            if l1.val <= l2.val:
+                curr.next = l1
+                l1 = l1.next
             else:
-                newList.next = list2
-                list2 = list2.next
+                curr.next = l2
+                l2 = l2.next
+            curr = curr.next
 
-            newList = newList.next
+        curr.next = l1 if l1 else l2
 
-        if list1:
-            newList.next = list1
-        elif list2:
-            newList.next = list2
-
-        return head.next
+        return newList.next
