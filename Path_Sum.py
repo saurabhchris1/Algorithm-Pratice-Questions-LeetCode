@@ -43,3 +43,22 @@ class Solution:
         helper(root, 0)
 
         return self.isAvailable
+
+    # self.isAvailable = False
+    #
+    # def helper(node, path):
+    #     nonlocal targetSum
+    #     if not node:
+    #         return
+    #     path.append(node.val)
+    #     if not node.left and not node.right:
+    #         if sum(path) == targetSum:
+    #             self.isAvailable = True
+    #     else:
+    #         helper(node.left, path)
+    #         helper(node.right, path)
+    #
+    #     path.pop()
+    #
+    # helper(root, [])
+    # return self.isAvailable
