@@ -19,6 +19,8 @@
 # Input: graph = [[1,3],[2],[3],[]]
 # Output: [[0,1,2,3],[0,3]]
 
+from collections import deque
+
 class Solution:
     def allPathsSourceTarget(self, graph):
 
@@ -35,3 +37,19 @@ class Solution:
         for neighbor in graph[node]:
             self.findPaths(neighbor, graph, path, res)
             path.pop()
+
+    def findPathsBFS(self, graph):
+        end = len(graph) - 1
+        start = 0
+        queue = deque([(start, [start])])
+
+        res = []
+        while queue:
+            node, currPath = queue.popleft()
+
+            if node == end:
+                res.append(currPath)
+
+            for neighbor in graph[node]:
+                queue.append((neighbor, currPath + [neighbor]))
+        return res
