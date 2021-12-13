@@ -31,7 +31,7 @@ class Solution:
                 current = current.children[char]
             current.isWord = True
             current.wordKey = word
-        res = set()
+        res = []
         for row in range(len(board)):
             for col in range(len(board[0])):
 
@@ -44,7 +44,8 @@ class Solution:
         node = parent.children[letter]
 
         if node.isWord:
-            res.add(node.wordKey)
+            res.append(node.wordKey)
+            node.isWord = False
 
         board[row][col] = "#"
 
