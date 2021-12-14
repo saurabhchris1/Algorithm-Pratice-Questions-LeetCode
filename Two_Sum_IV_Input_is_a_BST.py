@@ -60,3 +60,32 @@ class Solution:
                     queue.append(node.right)
 
         return False
+
+    def findTargetInorder(self, root, k: int) -> bool:
+        inorder = []
+        stack = []
+        curr = root
+
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+
+            curr = stack.pop()
+            inorder.append(curr.val)
+            curr = curr.right
+
+        left = 0
+        right = len(inorder) - 1
+
+        while left < right:
+
+            num = inorder[left] + inorder[right]
+
+            if num > k:
+                right -= 1
+            elif num < k:
+                left += 1
+            else:
+                return True
+        return False
