@@ -74,6 +74,14 @@ class Solution:
             words.append(prefix)
         for char in node.children:
             self.dfs(node.children[char], prefix + char, words)
+        # there are two more ways to do this
+        # for char in sorted(node.children.keys()):
+        #     self.dfs(node.children[char], res, prefix + char)
+
+        # for num in range(26):
+        #     char = chr(ord('a') + num)
+        #     if char in node.children:
+        #         self.dfs(node.children[char], res, prefix + char)
 
     def suggestedProducts(self, products, searchWord):
         self.buildTrie(sorted(products))
