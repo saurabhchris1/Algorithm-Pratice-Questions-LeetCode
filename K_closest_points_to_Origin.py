@@ -21,7 +21,7 @@
 # (The answer [[-2,4],[3,3]] would also be accepted.)
 
 import heapq
-
+from math import sqrt
 
 class Solution:
 
@@ -36,6 +36,46 @@ class Solution:
             res.append(heapq.heappop(heap)[1])
 
         return res
+
+    def kclosest_optimized(self, points, k):
+        distances = [self.distance(point) for point in points]
+        remaining = [i for i in range(len(points))]
+        low = 0
+        high = max(distances)
+
+        closest = []
+
+        while k:
+            mid = low + (high - low) / 2
+            closer, farther = self.splitDistance(remaining, distances, mid)
+
+            if len(closer) > k:
+                remaining = closer
+                high = mid
+            else:
+                k -= len(closer)
+                closest.extend(closer)
+                remaining = farther
+                low = mid
+
+        return [points[i] for i in closest]
+
+    def splitDistance(self, remaining, distances, mid):
+
+        closer = []
+        farther = []
+
+        for idx in remaining:
+            if distances[idx] <= mid:
+                closer.append(idx)
+            else:
+                farther.append(idx)
+
+        return [closer, farther]
+
+    def distance(self, point):
+
+        return sqrt(point[0] ** 2 + point[1] ** 2)
 
 
 if __name__ == "__main__":
